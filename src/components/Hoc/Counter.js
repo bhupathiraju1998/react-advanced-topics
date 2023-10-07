@@ -9,11 +9,12 @@ class Counter extends Component {
         return (
             <div>
                 <HocParagraph>Higher Order Component HOC</HocParagraph>
+                
                 <ButtonDiv>
                 <button type="button" onClick={incrementCount}>clicked {count} times</button>
 
                 </ButtonDiv>
-                <hr/>
+                
             </div>
         );
     }
