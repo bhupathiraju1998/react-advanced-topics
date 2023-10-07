@@ -3,6 +3,8 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import HeroComponent from "./components/ErrorBoundary/HeroComponent";
 import Counter from "./components/Hoc/Counter";
 import MakeStyles from "./components/MakeStyles";
+import ClassParentRefs from "./components/Refs/ClassParentRefs";
+import FunctionalRef from "./components/Refs/FunctionalRef";
 
 function App() {
   return (
@@ -16,9 +18,16 @@ function App() {
       <ErrorBoundary>
         <HeroComponent name="Hero " />
       </ErrorBoundary>
-      <ErrorBoundary>
+
+      {/* uncomment Below ErrorBoundary to see how error boundary works */}
+      {/* <ErrorBoundary>
         <HeroComponent name="villan" />
-      </ErrorBoundary>
+      </ErrorBoundary> */}
+      <hr/>
+
+      <FunctionalRef/>
+      <ClassParentRefs/>
+
       <hr/>
     </div>
   );
