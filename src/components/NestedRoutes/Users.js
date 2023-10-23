@@ -1,28 +1,50 @@
-import React from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../auth";
-const Users = () => {
-    const [searchParams , setsearchParams] = useSearchParams();
-    const auth = useAuth()
-    const navigate = useNavigate()
-    const showActiveUsers = searchParams.get('filter')  === 'active'
-    //we use .get method to get the filters and in response of the condition it retuns boolean
-   
-    const handleLogout = () => {
-      auth.logout()
-      navigate('/login')
-    }
-  
-  
-    return (
-    <>
-    <h2>Welcome User {auth.user}</h2>
-    <button onClick={()=>handleLogout()}>Logout</button>
-      <button onClick={()=>setsearchParams({filter:'active'})}>Active Users Filter</button>
-      {/* <button onClick={()=>setsearchParams({filter:'deactive'})}>Dective Users</button> */}
 
-      <button onClick={()=>setsearchParams({})}>Reset Filter</button>
-      {showActiveUsers ? <h2>Showing active users</h2> : <h2>showing all users</h2>}
+const Users = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useState(new URLSearchParams(location.search));
+
+  useEffect(() => {
+    setSearchParams(new URLSearchParams(location.search));
+  }, [location.search]);
+
+  const handleLogout = () => {
+    auth.logout();
+    navigate('/login');
+  };
+
+  const handleActiveFilter = () => {
+    const params = new URLSearchParams(location.search);
+    params.set('filter', 'active');
+    navigate('?' + params.toString());
+  };
+
+  const handleDeactiveFilter = () => {
+    const params = new URLSearchParams(location.search);
+    params.set('addFilter', 'deactive');
+    navigate('?' + params.toString());
+  };
+
+  const handleResetFilter = () => {
+    navigate();
+  };
+
+  const showActiveUsers = searchParams.get('filter') === 'active';
+  const showDeActiveUsers = searchParams.get('addFilter') === 'deactive';
+
+  return (
+    <>
+      <h2>Welcome User {auth.user}</h2>
+      <button onClick={handleLogout}>Logout</button>
+      <button onClick={handleActiveFilter}>Active Users Filter</button>
+      <button onClick={handleDeactiveFilter}>Deactive Users</button>
+      <button onClick={handleResetFilter}>Reset Filter</button>
+      {showActiveUsers ? <h2>Showing active users</h2> : null}
+      {showDeActiveUsers ? <h2>Showing deactive users</h2> : null}
     </>
   );
 };
