@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../auth";
+
 
 const Users = () => {
-  const auth = useAuth();
+ 
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useState(new URLSearchParams(location.search));
@@ -12,10 +12,7 @@ const Users = () => {
     setSearchParams(new URLSearchParams(location.search));
   }, [location.search]);
 
-  const handleLogout = () => {
-    auth.logout();
-    navigate('/login');
-  };
+  
 
   const handleActiveFilter = () => {
     const params = new URLSearchParams(location.search);
@@ -38,8 +35,7 @@ const Users = () => {
 
   return (
     <>
-      <h2>Welcome User {auth.user}</h2>
-      <button onClick={handleLogout}>Logout</button>
+      
       <button onClick={handleActiveFilter}>Active Users Filter</button>
       <button onClick={handleDeactiveFilter}>Deactive Users</button>
       <button onClick={handleResetFilter}>Reset Filter</button>

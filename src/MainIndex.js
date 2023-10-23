@@ -12,6 +12,7 @@ import Users from "./components/NestedRoutes/Users";
 import Profile from "./components/NestedRoutes/Profile";
 import { AuthProvider } from "./auth";
 import Login from "./components/NestedRoutes/Login";
+import RequireAuth from "./components/NestedRoutes/RequireAuth";
 //import LazyLoading from "./components/LazyLoading/LazyLoading";
 const LazyComponentImplemented = React.lazy(()=> import('./components/LazyLoading/LazyLoading') )
 
@@ -25,13 +26,13 @@ function MainIndex (){
             <Route exact path="/" element={<App/>}/>
             <Route exact path="/about" element={<About/>}/>
             <Route exact path='/order-summary' element={<OrderSummary/>}/>
-            <Route exact path='/products' element={<Products/>}>
+            <Route exact path='/products' element={<RequireAuth><Products/></RequireAuth>}>
                 <Route index element={<FeaturedProducts/>}/>
                 <Route path='featured' element={<FeaturedProducts/>}/> 
                 <Route path='new' element={<NewProducts/>}/>
             </Route>
-            <Route exact path='/users' element={<Users/>}/>
-            <Route exact path='/profile' element={<Profile/>}/>
+            <Route exact path='/users' element={<RequireAuth><Users/></RequireAuth>}/>
+            <Route exact path='/profile' element={<RequireAuth><Profile/></RequireAuth>}/>
             <Route exact path='/login' element={<Login/>}/>
 
       
