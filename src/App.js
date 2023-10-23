@@ -3,6 +3,7 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import HeroComponent from "./components/ErrorBoundary/HeroComponent";
 import Counter from "./components/Hoc/Counter";
 import MakeStyles from "./components/MakeStyles";
+import Home from "./components/NestedRoutes/Home";
 import ClassParentRefs from "./components/Refs/ClassParentRefs";
 import FunctionalRef from "./components/Refs/FunctionalRef";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,8 @@ function App() {
   const navigate = useNavigate()
   return (
     <div>
+      <Home/>
+      <hr/>
       <MakeStyles />
       <hr />
       <Counter />
