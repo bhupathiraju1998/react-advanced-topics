@@ -7,7 +7,7 @@ import Home from "./components/NestedRoutes/Home";
 import ClassParentRefs from "./components/Refs/ClassParentRefs";
 import FunctionalRef from "./components/Refs/FunctionalRef";
 import { useNavigate } from "react-router-dom";
-
+import PortalDemo from "./components/portals/PortalDemo";
 function App() {
   const navigate = useNavigate()
   return (
@@ -39,6 +39,10 @@ function App() {
         <button onClick={()=>navigate('/lazycomponent')}>Click Me to check Lazy Loading</button>
       </div>
       <hr/>
+      <div className="App">
+      <PortalDemo />
+
+      </div>
     </div>
   );
 }
