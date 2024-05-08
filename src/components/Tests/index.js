@@ -117,49 +117,78 @@ export default function App() {
       console.log('ok');
     }
   };
+  const [intervalTime, setIntervalTime] = useState('');
+  const handleInputThrottle = async (e, timeDelay) => {
+    clearInterval(intervalTime);
+    console.log('ok');
+    let intervalId = await setInterval(() => {
+      setInputvalue(e.target.value);
+    }, timeDelay);
+    setIntervalTime(intervalId);
+  };
   console.log('input', inputValue);
+
   const [modal, setModal] = useState(false);
   const handleModal = () => {
     setModal(!modal);
   };
 
-  const objcountry = [{name:"india",cities:["bvrm","hyd"]},{name:"usa",cities:["nyc","toit"]}]
-  const [selectedCountry ,setSelectedCountry]= useState("") 
+  const objcountry = [
+    { name: 'india', cities: ['bvrm', 'hyd'] },
+    { name: 'usa', cities: ['nyc', 'toit'] },
+  ];
+  const [selectedCountry, setSelectedCountry] = useState('');
   return (
     <div>
-      
       <button onClick={changeButtonText}>{name}</button>
-      <input type="text" onKeyDown={(e) => handleInput(e, 3000)} />
+      <input
+        type="text"
+        onKeyDown={(e) => handleInput(e, 3000)}
+        placeholder="debounce"
+      />
+      <input
+        type="text"
+        onChange={(e) => handleInputThrottle(e, 5000)}
+        placeholder="throttle"
+      />
+
       <button onClick={handleModal}>a</button>
       <button onClick={handleModal}>b</button>
       <button onClick={handleModal}>c</button>
-      <div style={{position:"absolute"}}>
-      {modal && (
-        <div className="modal-box" onClick={handleModal}>
-          <p>This is the modal box</p>
-          <button onClick={handleModal}>&times;</button>
-        </div>
-      )}
+      <div style={{ position: 'absolute' }}>
+        {modal && (
+          <div className="modal-box" onClick={handleModal}>
+            <p>This is the modal box</p>
+            <button onClick={handleModal}>&times;</button>
+          </div>
+        )}
       </div>
-        
 
-        <div>
-
-          <select onChange={(e)=>setSelectedCountry(e.target.value)}>
-            {objcountry.map((each,key)=><option value={each.name} key={each.name}>{each.name}</option>)}
-          </select>
-          {selectedCountry && <>
-            {objcountry.map((each)=>{
-              if(each.name === selectedCountry){
-                console.log("entered")
-               return (<select>
-                  {each?.cities.map((eachCity)=><option>{eachCity}</option>)}
-                  </select>)
+      <div>
+        <select onChange={(e) => setSelectedCountry(e.target.value)}>
+          {objcountry.map((each, key) => (
+            <option value={each.name} key={each.name}>
+              {each.name}
+            </option>
+          ))}
+        </select>
+        {selectedCountry && (
+          <>
+            {objcountry.map((each) => {
+              if (each.name === selectedCountry) {
+                console.log('entered');
+                return (
+                  <select>
+                    {each?.cities.map((eachCity) => (
+                      <option>{eachCity}</option>
+                    ))}
+                  </select>
+                );
               }
             })}
-            </>}
-        </div>
-
+          </>
+        )}
+      </div>
     </div>
   );
 }
